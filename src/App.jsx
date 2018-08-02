@@ -6,11 +6,12 @@
  * @Description: React Component App
  */
 import React from 'react'
+import Notes from './components/Notes/index.jsx'
 
 class App extends React.Component {
     render() {
         return (
-            <h4>react notes</h4>
+            <Notes/>
         )
     }
 }
