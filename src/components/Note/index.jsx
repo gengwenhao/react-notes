@@ -15,9 +15,22 @@ class Note extends React.Component {
 
     render() {
         return (
-            <div>
-                笔记项目
-                <Editor/>
+            <div className='item'>
+                <div className="meta">
+                    {'updated'}
+                </div>
+                <div className="content">
+                    <div className="header">
+                        {'笔记项目'}
+                    </div>
+                </div>
+                <div className="extra">
+                    <Editor/>
+                    {'X'}字
+                    <i className="right floated trash icon">
+
+                    </i>
+                </div>
             </div>
         )
     }

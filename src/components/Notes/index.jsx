@@ -15,9 +15,20 @@ class Notes extends React.Component {
 
     render() {
         return (
-            <div>
-                <h4>React Notes</h4>
-                <Note/>
+            <div className='ui container notes'>
+                <h4 className='ui horizontal divider header'>
+                    <i className="paw icon"/>
+                    React Notes
+                </h4>
+                <button className="ui right floated base violet button">
+                    添加笔记
+                </button>
+                <div className="ui divided items">
+                    <Note/>
+                    <span className="ui small disabled header">
+                        还没有笔记，请按下'添加笔记'按钮
+                    </span>
+                </div>
             </div>
         )
     }

@@ -7,6 +7,8 @@
  */
 import React from 'react'
 import Notes from './components/Notes/index.jsx'
+import 'semantic-ui-css/semantic.min.css'
+import './common/index.css'
 
 class App extends React.Component {
     render() {
