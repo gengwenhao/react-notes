@@ -32,6 +32,7 @@
 h4.ui.horizontal.divider.header span:nth-child(2n) {
     color: #5829bb;
     font-weight: bold;
+    font-size: 30px;
 }
 
 h4.ui.horizontal.divider.header span:nth-child(2n+1) {

@@ -1,6 +1,7 @@
 // 项目使用到的数据库
 import Loki from 'lokijs'
 
+
 export const db = new Loki('notes', {
     autoload: true,
     autoloadCallback: databaseInitialize,
@@ -25,6 +26,7 @@ export function databaseReset(collection) {
         db.removeCollection(collection)
         db.addCollection(collection)
         db.saveDatabase()
+        resolve()
     })
 }
 

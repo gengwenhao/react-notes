@@ -8,6 +8,7 @@
 import React from 'react'
 import Note from '../Note/index'
 import {databaseReset, loadCollection, db} from "../../database"
+import Notifications, {notify} from 'react-notify-toast'
 
 class Notes extends React.Component {
     constructor(props) {
@@ -17,6 +18,11 @@ class Notes extends React.Component {
         }
 
         this.getInitialData()
+    }
+
+    showTips = (tipMsg, type = 'custom', timeout = 2000) => {
+        let myColor = {background: '#5829bb', text: "#e3e9e0"};
+        notify.show(tipMsg, type, timeout, myColor);
     }
 
     // 数据初始化
@@ -54,6 +60,7 @@ class Notes extends React.Component {
                         entities: _entities
                     }
                 })
+                this.showTips('添加了新的笔记, 点击标题修改')
             })
     }
 
@@ -72,7 +79,6 @@ class Notes extends React.Component {
         loadCollection('notes')
             .then((collection) => {
                 collection.remove(entity)
-                db.saveDatabase()
             })
     }
 
@@ -86,6 +92,9 @@ class Notes extends React.Component {
 
         // 操作数据库
         databaseReset('notes')
+            .then(()=>{
+                this.showTips('清空完成')
+            })
     }
 
     render() {
@@ -102,6 +111,7 @@ class Notes extends React.Component {
 
         return (
             <div className='ui container notes'>
+                <Notifications/>
                 <h4 className='ui horizontal divider header'>
                     <i className="icon iconfont icon-note"/>
                     <span>React</span> <span>Notes</span>
