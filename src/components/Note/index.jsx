@@ -7,6 +7,13 @@
  */
 import React from 'react'
 import Editor from '../Editor/index'
+// 格式化时间的包，中文语言
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+// 字符截取的包
+import _ from 'lodash'
+
+moment.locale('zh-CN')
 
 class Note extends React.Component {
     state = {
@@ -19,20 +26,33 @@ class Note extends React.Component {
         super(props)
     }
 
+    updated() {
+        return moment(this.state.updated)
+            .fromNow()
+    }
+
+    header() {
+        return _.truncate(this.state.body, {length: 30}) || '新建笔记'
+    }
+
+    words() {
+        return this.state.body.length
+    }
+
     render() {
         return (
             <div className='item'>
                 <div className="meta">
-                    {this.state.updated}
+                    {this.updated()}
                 </div>
                 <div className="content">
                     <div className="header">
-                        {this.state.body}
+                        {this.header()}
                     </div>
                 </div>
                 <div className="extra">
                     <Editor/>
-                    {this.state.body.length}字
+                    {this.words()}字
                     <i className="right floated trash icon"/>
                 </div>
             </div>
