@@ -61,9 +61,12 @@ class Notes extends React.Component {
                 </button>
                 <div className="ui divided items">
                     {noteItems}
-                    <span className="ui small disabled header">
-                        还没有笔记，请按下'添加笔记'按钮
-                    </span>
+                    {
+                        !entities.length &&
+                        <span className="ui small disabled header">
+                            还没有笔记，请按下'添加笔记'按钮
+                        </span>
+                    }
                 </div>
             </div>
         )

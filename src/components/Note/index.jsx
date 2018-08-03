@@ -19,7 +19,8 @@ class Note extends React.Component {
     state = {
         entity: this.props.entity,
         body: this.props.entity.body,
-        updated: this.props.entity.meta.updated || this.props.entity.meta.created
+        updated: this.props.entity.meta.updated || this.props.entity.meta.created,
+        open: false
     }
 
     constructor(props) {
@@ -39,6 +40,14 @@ class Note extends React.Component {
         return this.state.body.length
     }
 
+    toggle = () => {
+        this.setState((prevState) => {
+            return {
+                open: !prevState.open
+            }
+        })
+    }
+
     render() {
         return (
             <div className='item'>
@@ -46,14 +55,20 @@ class Note extends React.Component {
                     {this.updated()}
                 </div>
                 <div className="content">
-                    <div className="header">
+                    <div className="header" onClick={this.toggle}>
                         {this.header()}
                     </div>
                 </div>
                 <div className="extra">
-                    <Editor/>
+                    {
+                        this.state.open &&
+                        <Editor/>
+                    }
                     {this.words()}字
-                    <i className="right floated trash icon"/>
+                    {
+                        this.state.open &&
+                        <i className="right floated trash icon"/>
+                    }
                 </div>
             </div>
         )
