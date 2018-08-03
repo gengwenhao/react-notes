@@ -12,6 +12,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 // 字符截取的包
 import _ from 'lodash'
+import {loadCollection, db} from "../../database"
 
 moment.locale('zh-CN')
 
@@ -48,6 +49,21 @@ class Note extends React.Component {
         })
     }
 
+    updateEntity = (event) => {
+        const _body = event.target.value
+        this.setState({
+            body: _body
+        })
+
+        loadCollection('notes')
+            .then((collection) => {
+                const entity = this.state.entity
+                entity.body = _body
+                collection.update(entity)
+                db.saveDatabase()
+            })
+    }
+
     render() {
         return (
             <div className='item'>
@@ -62,7 +78,8 @@ class Note extends React.Component {
                 <div className="extra">
                     {
                         this.state.open &&
-                        <Editor/>
+                        <Editor entity={this.state.entity}
+                                updateEntity={this.updateEntity}/>
                     }
                     {this.words()}字
                     {

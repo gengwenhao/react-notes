@@ -8,8 +8,10 @@
 import React from 'react'
 
 class Editor extends React.Component {
-    constructor(props) {
-        super(props)
+    state = {
+        entity: this.props.entity,
+        body: this.props.entity.body,
+        updateEntity: this.props.updateEntity
     }
 
     render() {
@@ -19,6 +21,8 @@ class Editor extends React.Component {
                     <textarea
                         rows='5'
                         placeholder='写点东西'
+                        defaultValue={this.state.body}
+                        onInput={(event) => this.state.updateEntity(event)}
                     />
                 </div>
             </div>

@@ -30,15 +30,34 @@ class Notes extends React.Component {
 
                 db.saveDatabase()
 
-                const entities = collection.chain()
+                const entities = collection
+                    .chain()
                     .find()
-                    .simplesort('$loki', 'isdesc')
+                    .simplesort('$loki', true)
                     .data()
                 this.setState({
                     entities
                 })
 
                 console.log('entities', entities)
+            })
+    }
+
+    createEntity = () => {
+        loadCollection('notes')
+            .then((collection) => {
+                const entity = collection.insert({
+                    body: ''
+                })
+
+                db.saveDatabase()
+                this.setState((prevState) => {
+                    const _entities = prevState.entities
+                    _entities.unshift(entity)
+                    return {
+                        entities: _entities
+                    }
+                })
             })
     }
 
@@ -56,7 +75,7 @@ class Notes extends React.Component {
                     <i className="paw icon"/>
                     React Notes
                 </h4>
-                <button className="ui right floated base violet button">
+                <button className="ui right floated base violet button" onClick={this.createEntity}>
                     添加笔记
                 </button>
                 <div className="ui divided items">
@@ -64,7 +83,7 @@ class Notes extends React.Component {
                     {
                         !entities.length &&
                         <span className="ui small disabled header">
-                            还没有笔记，请按下'添加笔记'按钮
+                            还木有笔记哦，按下'添加笔记'按钮
                         </span>
                     }
                 </div>
