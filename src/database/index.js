@@ -6,7 +6,6 @@ export const db = new Loki('notes', {
     autoloadCallback: databaseInitialize,
     autosave: true,
     autosaveInterval: 3000,
-    // 使用localStorage存储
     persistenceMethod: 'localStorage'
 })
 
@@ -18,6 +17,15 @@ function databaseInitialize() {
     if (notes === null) {
         db.addCollection('notes')
     }
+}
+
+// 重建数据库
+export function databaseReset(collection) {
+    return new Promise(resolve => {
+        db.removeCollection(collection)
+        db.addCollection(collection)
+        db.saveDatabase()
+    })
 }
 
 // 加载数据

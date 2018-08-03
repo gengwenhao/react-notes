@@ -24,3 +24,21 @@
 .trash.icon {
     cursor: pointer;
 }
+
+.icon.iconfont.icon-note {
+    color: #5829bb;
+}
+
+h4.ui.horizontal.divider.header span:nth-child(2n) {
+    color: #5829bb;
+    font-weight: bold;
+}
+
+h4.ui.horizontal.divider.header span:nth-child(2n+1) {
+    color: #b8b8b8;
+    font-weight: bold;
+}
+
+.header {
+    color: #555 !important;
+}

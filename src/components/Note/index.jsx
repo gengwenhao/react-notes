@@ -25,17 +25,13 @@ class Note extends React.Component {
         destroyEntity: this.props.destroyEntity
     }
 
-    constructor(props) {
-        super(props)
-    }
-
     updated() {
         return moment(this.state.updated)
             .fromNow()
     }
 
     header() {
-        return _.truncate(this.state.body, {length: 30}) || '新建笔记'
+        return _.truncate(this.state.body, {length: 30}) || '新建的笔记'
     }
 
     words() {
@@ -67,7 +63,7 @@ class Note extends React.Component {
 
     render() {
         return (
-            <div className='item'>
+            <div className='item animated bounceInLeft'>
                 <div className="meta">
                     {this.updated()}
                 </div>
@@ -87,7 +83,6 @@ class Note extends React.Component {
                         this.state.open &&
                         <i className="right floated trash icon"
                            onClick={() => {
-                               console.log('删除', this.state.entity)
                                this.state.destroyEntity(this.state.entity)
                            }}/>
                     }

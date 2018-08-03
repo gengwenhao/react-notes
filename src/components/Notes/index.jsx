@@ -7,30 +7,22 @@
  */
 import React from 'react'
 import Note from '../Note/index'
-import {loadCollection, db} from "../../database"
+import {databaseReset, loadCollection, db} from "../../database"
 
 class Notes extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            entities: []
+        }
 
         this.getInitialData()
-    }
-
-    state = {
-        entities: []
     }
 
     // 数据初始化
     getInitialData() {
         loadCollection('notes')
             .then((collection) => {
-                // collection.insert([
-                //     {body: 'hello~'},
-                //     {body: 'hola~'}
-                // ])
-
-                db.saveDatabase()
-
                 const entities = collection
                     .chain()
                     .find()
@@ -44,6 +36,8 @@ class Notes extends React.Component {
 
     // 创建笔记
     createEntity = () => {
+        console.log('createEntity')
+        console.log('entities', this.state.entities)
         loadCollection('notes')
             .then((collection) => {
                 // 操作数据库
@@ -82,6 +76,18 @@ class Notes extends React.Component {
             })
     }
 
+    // 清空笔记
+    clearEntities = () => {
+        const entities = []
+
+        this.setState({
+            entities
+        })
+
+        // 操作数据库
+        databaseReset('notes')
+    }
+
     render() {
         const entities = this.state.entities
         const noteItems = entities.map((entity) => {
@@ -97,12 +103,20 @@ class Notes extends React.Component {
         return (
             <div className='ui container notes'>
                 <h4 className='ui horizontal divider header'>
-                    <i className="paw icon"/>
-                    React Notes
+                    <i className="icon iconfont icon-note"/>
+                    <span>React</span> <span>Notes</span>
                 </h4>
-                <button className="ui right floated base violet button" onClick={this.createEntity}>
-                    添加笔记
-                </button>
+                <div className="ui three tiny violet buttons">
+                    <button className="ui button" onClick={this.clearEntities}>
+                        清空本地
+                    </button>
+                    <a className="ui button" href='//github.com/gengwenhao/react-notes'>
+                        关于React Notes
+                    </a>
+                    <button className="ui button" onClick={this.createEntity}>
+                        新的笔记
+                    </button>
+                </div>
                 <div className="ui divided items">
                     {noteItems}
                     {
