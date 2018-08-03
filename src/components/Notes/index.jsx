@@ -6,11 +6,40 @@
  * @Description: React Component Notes
  */
 import React from 'react'
-import Note from '../Note/index.jsx'
+import Note from '../Note/index'
+import {loadCollection, db} from "../../database"
 
 class Notes extends React.Component {
     constructor(props) {
         super(props)
+
+        this.getInitialData()
+    }
+
+    state = {
+        entities: []
+    }
+
+    getInitialData() {
+        loadCollection('notes')
+            .then((collection) => {
+                // collection.insert([
+                //     {body: 'hello~'},
+                //     {body: 'hola~'}
+                // ])
+
+                db.saveDatabase()
+
+                const entities = collection.chain()
+                    .find()
+                    .simplesort('$loki', 'isdesc')
+                    .data()
+                this.setState({
+                    entities
+                })
+
+                console.log('entities', entities)
+            })
     }
 
     render() {

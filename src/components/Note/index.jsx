@@ -6,7 +6,7 @@
  * @Description: React Component Note
  */
 import React from 'react'
-import Editor from '../Editor/index.jsx'
+import Editor from '../Editor/index'
 
 class Note extends React.Component {
     constructor(props) {

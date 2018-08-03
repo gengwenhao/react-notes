@@ -4254,6 +4254,10 @@ loglevel@^1.4.1:
   version "1.6.1"
   resolved "http://r.cnpmjs.org/loglevel/download/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
 
+lokijs@^1.5.5:
+  version "1.5.5"
+  resolved "http://r.cnpmjs.org/lokijs/download/lokijs-1.5.5.tgz#1c21f82af7579037fade7b9e4813485c23708bb6"
+
 longest@^1.0.1:
   version "1.0.1"
   resolved "http://r.cnpmjs.org/longest/download/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"

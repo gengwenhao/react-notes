@@ -6,7 +6,7 @@
  * @Description: React Component App
  */
 import React from 'react'
-import Notes from './components/Notes/index.jsx'
+import Notes from './components/Notes/index'
 import 'semantic-ui-css/semantic.min.css'
 import './common/index.css'
 
