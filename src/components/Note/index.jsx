@@ -9,6 +9,12 @@ import React from 'react'
 import Editor from '../Editor/index'
 
 class Note extends React.Component {
+    state = {
+        entity: this.props.entity,
+        body: this.props.entity.body,
+        updated: this.props.entity.meta.updated || this.props.entity.meta.created
+    }
+
     constructor(props) {
         super(props)
     }
@@ -17,19 +23,17 @@ class Note extends React.Component {
         return (
             <div className='item'>
                 <div className="meta">
-                    {'updated'}
+                    {this.state.updated}
                 </div>
                 <div className="content">
                     <div className="header">
-                        {'笔记项目'}
+                        {this.state.body}
                     </div>
                 </div>
                 <div className="extra">
                     <Editor/>
-                    {'X'}字
-                    <i className="right floated trash icon">
-
-                    </i>
+                    {this.state.body.length}字
+                    <i className="right floated trash icon"/>
                 </div>
             </div>
         )
