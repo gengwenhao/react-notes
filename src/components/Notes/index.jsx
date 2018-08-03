@@ -20,6 +20,7 @@ class Notes extends React.Component {
         entities: []
     }
 
+    // 数据初始化
     getInitialData() {
         loadCollection('notes')
             .then((collection) => {
@@ -38,19 +39,20 @@ class Notes extends React.Component {
                 this.setState({
                     entities
                 })
-
-                console.log('entities', entities)
             })
     }
 
+    // 创建笔记
     createEntity = () => {
         loadCollection('notes')
             .then((collection) => {
+                // 操作数据库
                 const entity = collection.insert({
                     body: ''
                 })
-
                 db.saveDatabase()
+
+                // 更改state状态
                 this.setState((prevState) => {
                     const _entities = prevState.entities
                     _entities.unshift(entity)
@@ -61,11 +63,34 @@ class Notes extends React.Component {
             })
     }
 
+    //销毁笔记
+    destroyEntity = (entity) => {
+        // 更改state状态
+        const _entities = this.state.entities.filter((_entity) => {
+            return _entity.$loki !== entity.$loki
+        })
+
+        this.setState({
+            entities: _entities
+        })
+
+        // 操作数据库
+        loadCollection('notes')
+            .then((collection) => {
+                collection.remove(entity)
+                db.saveDatabase()
+            })
+    }
+
     render() {
         const entities = this.state.entities
         const noteItems = entities.map((entity) => {
             return (
-                <Note key={entity.$loki} entity={entity}/>
+                <Note
+                    key={entity.$loki}
+                    entity={entity}
+                    destroyEntity={this.destroyEntity}
+                />
             )
         })
 

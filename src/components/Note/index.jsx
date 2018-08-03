@@ -21,7 +21,8 @@ class Note extends React.Component {
         entity: this.props.entity,
         body: this.props.entity.body,
         updated: this.props.entity.meta.updated || this.props.entity.meta.created,
-        open: false
+        open: false,
+        destroyEntity: this.props.destroyEntity
     }
 
     constructor(props) {
@@ -84,7 +85,11 @@ class Note extends React.Component {
                     {this.words()}字
                     {
                         this.state.open &&
-                        <i className="right floated trash icon"/>
+                        <i className="right floated trash icon"
+                           onClick={() => {
+                               console.log('删除', this.state.entity)
+                               this.state.destroyEntity(this.state.entity)
+                           }}/>
                     }
                 </div>
             </div>
